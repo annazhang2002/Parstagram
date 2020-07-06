@@ -9,7 +9,7 @@ import com.parse.ParseUser;
 public class Post extends ParseObject {
 
     public static final String KEY_DESCRIPTION = "description";
-    public static final String KEY_IMAGE = "image";
+    public static final String KEY_IMAGE = "Image";
     public static final String KEY_USER = "author";
 
     public String getDescription() {
