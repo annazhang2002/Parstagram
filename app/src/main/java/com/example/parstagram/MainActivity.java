@@ -114,9 +114,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // resize the bitmap
-                Bitmap bMapScaled = Bitmap.createScaledBitmap(takenImage, 150, 100, true);
-                ivPostImage.setImageBitmap(bMapScaled);
+                // TODO resize the bitmap
+                ivPostImage.setImageBitmap(takenImage);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
