@@ -24,6 +24,9 @@ public class OpeningActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             Log.i(TAG, "User is already signed in");
+            // navigate to the main activity
+            Intent intent = new Intent(this, MainActivity.class);
+            this.startActivity(intent);
         }
 
         btnLogin = findViewById(R.id.btnLogin);

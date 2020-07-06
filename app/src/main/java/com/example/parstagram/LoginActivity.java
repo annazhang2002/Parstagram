@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void goMainActivity() {
+    public void goMainActivity() {
         // navigate to the main activity
         Intent intent = new Intent(this, MainActivity.class);
 //        intent.putExtra()
