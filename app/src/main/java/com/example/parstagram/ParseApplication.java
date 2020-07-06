@@ -3,6 +3,7 @@ package com.example.parstagram;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 import okhttp3.OkHttpClient;
 
@@ -10,6 +11,9 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Register your parse models
+        ParseObject.registerSubclass(Post.class);
 
         // for debugging
 //        // Use for troubleshooting -- remove this line for production
