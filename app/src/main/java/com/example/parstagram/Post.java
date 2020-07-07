@@ -23,6 +23,8 @@ public class Post extends ParseObject {
     public static final String KEY_USER = "author";
     public static final String KEY_CREATEDAT = "createdAt";
     public static final String KEY_PROFILEPIC = "profilePic";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_BIO = "bio";
 //
 //    public Post() {}
 
