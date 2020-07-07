@@ -9,35 +9,33 @@
     android:paddingEnd="20dp"
     tools:context=".OpeningActivity">
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="272dp"
+        android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="187dp"
-        android:text="Parstagram"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="297dp" />
+        android:layout_marginTop="90dp"
+        app:srcCompat="@drawable/nux_dayone_landing_logo" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
+        android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/mybutton"
         android:text="Login" />
 
     <Button
         android:id="@+id/btnSignup"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnLogin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/mybutton"
         android:text="Sign Up" />
+
 </RelativeLayout>
