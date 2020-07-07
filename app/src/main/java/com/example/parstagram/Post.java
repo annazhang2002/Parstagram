@@ -22,6 +22,7 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "Image";
     public static final String KEY_USER = "author";
     public static final String KEY_CREATEDAT = "createdAt";
+    public static final String KEY_PROFILEPIC = "profilePic";
 //
 //    public Post() {}
 
@@ -51,7 +52,6 @@ public class Post extends ParseObject {
 
     public String getTimestamp() {
         String createdAt = getCreatedAt().toString();
-        Log.i("Post", "Date from date: " + createdAt + "\nrelativedate: " + getRelativeTimeAgo(createdAt));
         return getRelativeTimeAgo(createdAt);
     }
 // getRelativeTimeAgo("2020-07-07T16:07:26.465Z");

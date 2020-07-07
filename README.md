@@ -19,7 +19,7 @@ The following **required** functionality is completed:
 
 The following **stretch** features are implemented:
 
-- [ ] Style the login page to look like the real Instagram login page.
+- [X] Style the login page to look like the real Instagram login page.
 - [ ] Style the feed to look like the real Instagram feed.
 - [X] User should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View.
 - [ ] User can load more posts once he or she reaches the bottom of the feed using endless scrolling.
@@ -35,7 +35,8 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-- [X] Resized the bitmap to reduce storage space in database
+- [ ] Resized the bitmap to reduce storage space in database
+- [X] User sees specific error message when Parse can't login or sign them up (i.e. Account with that username already exists, invalid password/username)
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
