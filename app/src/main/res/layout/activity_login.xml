@@ -15,8 +15,8 @@
         android:layout_below="@+id/imageView"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="42dp"
         android:ems="10"
         android:hint="username"
         android:inputType="textPersonName"
@@ -30,26 +30,6 @@
         tools:layout_editor_absoluteX="2dp"
         tools:layout_editor_absoluteY="2dp" />
 
-    <EditText
-        android:id="@+id/etPassword"
-        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etUsername"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="11dp"
-        android:ems="10"
-        android:hint="password"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="@color/lightGray"
-        android:textColorHint="@color/lightGray"
-        android:textColorLink="@color/lightGray"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="2dp" />
-
     <Button
         android:id="@+id/btnLogin"
         style="@android:style/Widget.DeviceDefault.Button"
@@ -58,8 +38,8 @@
         android:layout_below="@+id/etPassword"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="34dp"
         android:background="@drawable/mybutton"
         android:text="Login" />
 
@@ -70,7 +50,33 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="55dp"
         app:srcCompat="@drawable/nux_dayone_landing_logo" />
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        tools:text="User already exists with this username" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:textColor="@color/lightGray"
+        android:textColorHighlight="@color/lightGray"
+        android:textColorHint="@color/lightGray"
+        android:textColorLink="@color/lightGray" />
 </RelativeLayout>
