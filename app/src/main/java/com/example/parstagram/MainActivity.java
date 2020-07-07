@@ -51,13 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ParseUser.logOut();
-//                goOpening();
-//            }
-//        });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -83,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
       bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 
-    private void goOpening() {
-        Intent intent = new Intent(this, OpeningActivity.class);
-        startActivity(intent);
-    }
+
 
 }
