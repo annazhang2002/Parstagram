@@ -65,6 +65,11 @@ public class ProfileFragment extends Fragment {
         btnEdit = view.findViewById(R.id.btnEdit);
         btnLogout = view.findViewById(R.id.btnLogout);
 
+        if (!user.getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
+            btnEdit.setVisibility(View.GONE);
+            btnLogout.setVisibility(View.GONE);
+        }
+
         ParseFile profile = user.getParseFile(Post.KEY_PROFILEPIC);
         if (profile != null) {
             Glide.with(getContext()).load(profile.getUrl()).circleCrop().into(ivProfile);
@@ -73,7 +78,11 @@ public class ProfileFragment extends Fragment {
         }
         tvName.setText(user.getString(Post.KEY_NAME));
         tvUsername.setText("@" + user.getUsername());
-        tvBio.setText(user.getString(Post.KEY_BIO));
+        if (user.getString(Post.KEY_BIO) == null) {
+            tvBio.setVisibility(View.GONE);
+        } else {
+            tvBio.setText(user.getString(Post.KEY_BIO));
+        }
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

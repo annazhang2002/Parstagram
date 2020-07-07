@@ -78,7 +78,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             itemView.setOnClickListener(this);
         }
 
-        public void bind(Post post) {
+        public void bind(final Post post) {
             Log.i(TAG, "user: " + post.getUser().getUsername());
             String username = post.getUser().getUsername();
             tvDescription.setText(post.getDescription());
@@ -94,6 +94,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             } else {
                 Glide.with(context).load(R.drawable.default_pic).circleCrop().into(ivProfile);
             }
+            ivProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MainActivity.goUserProfile(post.getUser());
+                }
+            });
         }
 
         @Override
