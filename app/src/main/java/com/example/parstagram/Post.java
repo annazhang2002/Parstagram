@@ -12,6 +12,7 @@ import com.parse.ParseUser;
 import org.parceler.Parcel;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 //@Parcel
@@ -54,8 +55,18 @@ public class Post extends ParseObject {
 
     public String getTimestamp() {
         String createdAt = getCreatedAt().toString();
+        return getSimpleDate(createdAt);
+    }
+
+    public String getRelativeTime() {
+        String createdAt = getCreatedAt().toString();
         return getRelativeTimeAgo(createdAt);
     }
+
+    public ParseFile getProfile() {
+        return getParseUser(KEY_USER).getParseFile(KEY_PROFILEPIC);
+    }
+
 // getRelativeTimeAgo("2020-07-07T16:07:26.465Z");
     public static String getRelativeTimeAgo(String rawJsonDate) {
         String parseFormat = "EEE MMM dd hh:mm:ss zzz yyyy";
@@ -76,8 +87,15 @@ public class Post extends ParseObject {
 
         return relativeDate;
     }
-
-    public ParseFile getProfile() {
-        return getParseUser(KEY_USER).getParseFile(KEY_PROFILEPIC);
+    public static String getSimpleDate(String rawJsonDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        String newFormat = "MMMM dd, yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.applyPattern(newFormat);
+        String newDate = sf.format(new Date(rawJsonDate));
+        Log.i("Tweet", "newDate: " + newDate);
+        return newDate;
     }
+
+
 }
