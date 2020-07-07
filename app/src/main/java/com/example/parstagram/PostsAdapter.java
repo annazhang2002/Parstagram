@@ -1,6 +1,7 @@
 package com.example.parstagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -57,7 +60,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvName;
         TextView tvDescription;
@@ -68,6 +71,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvName = itemView.findViewById(R.id.tvName);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivImage = itemView.findViewById(R.id.ivImage);
+
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
@@ -78,6 +83,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+
+            // making sure the position is valid
+            if (position != RecyclerView.NO_POSITION) {
+                Post post = posts.get(position);
+
+                // creating a new intent to go to the new activity
+                Intent intent = new Intent(context, PostDetailsActivity.class);
+
+                // pass information to the intent with the parceler
+                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+
+                context.startActivity(intent);
             }
         }
     }
