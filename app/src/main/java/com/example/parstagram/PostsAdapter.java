@@ -65,13 +65,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         TextView tvName;
         TextView tvDescription;
         ImageView ivImage;
+        ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivImage = itemView.findViewById(R.id.ivImage);
-
+            ivProfile = itemView.findViewById(R.id.ivProfile);
             itemView.setOnClickListener(this);
         }
 
@@ -83,6 +84,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
+            }
+            ParseFile profile = post.getProfile();
+            if (profile != null) {
+                Glide.with(context).load(profile.getUrl()).circleCrop().into(ivProfile);
+            } else {
+                Glide.with(context).load(R.drawable.default_pic).circleCrop().into(ivProfile);
             }
         }
 

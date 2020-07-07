@@ -74,4 +74,8 @@ public class Post extends ParseObject {
 
         return relativeDate;
     }
+
+    public ParseFile getProfile() {
+        return getParseUser(KEY_USER).getParseFile(KEY_PROFILEPIC);
+    }
 }

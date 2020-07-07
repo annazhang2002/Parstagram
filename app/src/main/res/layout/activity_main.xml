@@ -6,10 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="160dp"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:foregroundGravity="clip_vertical"
+        android:padding="10dp"
+        app:srcCompat="@drawable/nux_dayone_landing_logo" />
+
     <FrameLayout
+        android:id="@+id/flContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/flContainer">
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp">
+
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,4 +44,5 @@
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
         app:menu="@menu/menu_bottom_navigation" />
+
 </RelativeLayout>
