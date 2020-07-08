@@ -2,10 +2,9 @@ package com.example.parstagram;
 
 import android.app.Application;
 
+import com.example.parstagram.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
-
-import okhttp3.OkHttpClient;
 
 public class ParseApplication extends Application {
     @Override

@@ -1,4 +1,4 @@
-package com.example.parstagram;
+package com.example.parstagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.parstagram.R;
 import com.parse.ParseUser;
 
 public class OpeningActivity extends AppCompatActivity {

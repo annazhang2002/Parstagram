@@ -1,4 +1,4 @@
-package com.example.parstagram;
+package com.example.parstagram.models;
 
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -27,7 +27,7 @@ public class Post extends ParseObject {
     public static final String KEY_NAME = "name";
     public static final String KEY_BIO = "bio";
 //
-//    public Post() {}
+    public Post() {}
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);

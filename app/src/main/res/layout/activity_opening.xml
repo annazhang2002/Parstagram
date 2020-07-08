@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
-    tools:context=".OpeningActivity">
+    tools:context=".activities.OpeningActivity">
 
     <ImageView
         android:id="@+id/imageView3"

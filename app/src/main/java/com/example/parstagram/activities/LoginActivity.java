@@ -1,4 +1,4 @@
-package com.example.parstagram;
+package com.example.parstagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,12 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.parstagram.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
-
-import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
