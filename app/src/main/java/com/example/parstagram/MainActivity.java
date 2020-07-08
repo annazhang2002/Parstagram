@@ -62,5 +62,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
     }
 
+    public static void goHome() {
+        Fragment fragment = new PostsFragment();
+        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+    }
 
 }

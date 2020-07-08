@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -9,52 +9,39 @@
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_height="93dp"
+        android:layout_below="@+id/ivPostImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/border"
         android:ems="10"
-        android:hint="Description"
-        android:inputType="textPersonName" />
-
-    <Button
-        android:id="@+id/btnTakePicture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etDescription"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="13dp"
-        android:text="Take Picture" />
+        android:gravity="start"
+        android:hint="Caption"
+        android:inputType="textPersonName"
+        android:padding="10dp" />
 
     <ImageView
         android:id="@+id/ivPostImage"
-        android:layout_width="171dp"
-        android:layout_height="196dp"
-        android:layout_below="@+id/btnTakePicture"
+        android:layout_width="213dp"
+        android:layout_height="211dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="123dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="16dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivPostImage"
+        android:layout_below="@+id/etDescription"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="Submit" />
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="30dp"
+        android:text="post" />
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSubmit"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="17dp"
-        android:text="Logout" />
-
-</LinearLayout>
+</RelativeLayout>

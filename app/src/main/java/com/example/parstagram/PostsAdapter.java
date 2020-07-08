@@ -100,6 +100,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     MainActivity.goUserProfile(post.getUser());
                 }
             });
+            tvName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MainActivity.goUserProfile(post.getUser());
+                }
+            });
         }
 
         @Override

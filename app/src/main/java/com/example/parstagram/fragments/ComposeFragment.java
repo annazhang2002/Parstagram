@@ -1,5 +1,6 @@
 package com.example.parstagram.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,12 +49,11 @@ public class ComposeFragment extends Fragment {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private static final String TAG = "ComposeFragment";
     EditText etDescription;
-    Button btnTakePicture;
     ImageView ivPostImage;
     Button btnSubmit;
-    Button btnLogout;
     File photoFile;
     String photoFileName = "photo.jpg";
+    ProgressDialog pd;
 
     public ComposeFragment() {
         // Required empty public constructor
@@ -78,8 +78,7 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+        launchCamera();
     }
 
     @Override
@@ -92,12 +91,12 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         etDescription = view.findViewById(R.id.etDescription);
-        btnTakePicture = view.findViewById(R.id.btnTakePicture);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
-        btnLogout = view.findViewById(R.id.btnLogout);
 
+        createProgressDialog();
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,15 +110,9 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(), "No photo chosen", Toast.LENGTH_LONG).show();
                     return;
                 }
+                pd.show();
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
-            }
-        });
-        btnTakePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "onClick take picture");
-                launchCamera();
             }
         });
     }
@@ -177,6 +170,13 @@ public class ComposeFragment extends Fragment {
         return file;
     }
 
+    public void createProgressDialog() {
+        pd = new ProgressDialog(getContext());
+        pd.setTitle("Posting...");
+        pd.setMessage("Please wait.");
+        pd.setCancelable(false);
+    }
+
     private void savePost(String description, ParseUser currentUser, File photoFile) {
         Post post = new Post();
         post.setDescription(description);
@@ -194,6 +194,8 @@ public class ComposeFragment extends Fragment {
                 Log.i(TAG, "Post was saved!!");
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
+                pd.dismiss();
+                MainActivity.goHome();
             }
         });
     }
