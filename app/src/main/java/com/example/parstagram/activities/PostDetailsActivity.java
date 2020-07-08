@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,9 @@ import com.example.parstagram.adapters.CommentAdapter;
 import com.example.parstagram.adapters.PostsAdapter;
 import com.example.parstagram.models.Comment;
 import com.example.parstagram.models.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 import org.parceler.Parcels;
 
@@ -22,6 +26,7 @@ import java.util.List;
 
 public class PostDetailsActivity extends AppCompatActivity {
 
+    private static final String TAG = "PostDetailsActivity";
     TextView tvName;
     TextView tvTimestamp;
     TextView tvDescription;
@@ -57,5 +62,30 @@ public class PostDetailsActivity extends AppCompatActivity {
         tvDescription.setText(post.getDescription());
         Glide.with(this).load(post.getImage().getUrl()).into(ivImage);
 
+        queryComments();
+
+    }
+
+    protected void queryComments() {
+        Log.i(TAG, "queryComments");
+        ParseQuery<Comment> query = ParseQuery.getQuery(Comment.class);
+        query.include(Comment.KEY_USER);
+        query.include(Comment.KEY_POST);
+        query.setLimit(10);
+        query.addDescendingOrder(Comment.KEY_CREATEDAT);
+        query.findInBackground(new FindCallback<Comment>() {
+            @Override
+            public void done(List<Comment> comments, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting comments", e);
+                }
+                for (Comment comment : comments) {
+                    Log.i(TAG, "Comment: " + comment.getMessage());
+//                    Log.i(TAG, "username " + comment.getUser());
+                }
+                adapter.clear();
+                adapter.addAll(comments);
+            }
+        });
     }
 }

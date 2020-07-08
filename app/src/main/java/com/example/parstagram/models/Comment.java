@@ -23,6 +23,7 @@ public class Comment extends ParseObject {
     public static final String KEY_POST = "post";
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_PROFILEPIC = "profilePic";
+    public static final String KEY_CREATEDAT = "createdAt";
 
     public Comment() {}
 
@@ -35,13 +36,9 @@ public class Comment extends ParseObject {
     public String getMessage() {
         return getString(KEY_MESSAGE);
     }
-    public String getUsername() {
-        return getUser().getUsername();
-    }
     public ParseFile getProfile() {
-        return getUser().getParseFile(KEY_PROFILEPIC);
+        return getParseUser(KEY_USER).getParseFile(KEY_PROFILEPIC);
     }
-
 
     public void setUser(ParseUser user) {
         put(KEY_USER, user);

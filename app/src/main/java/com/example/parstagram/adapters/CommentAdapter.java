@@ -83,8 +83,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         public void bind(final Comment comment) {
             tvMessage.setText(comment.getMessage());
-            tvUsername.setText(comment.getUsername());
-            ParseFile profile = comment.getProfile();
+            tvUsername.setText(comment.getUser().getUsername());
+            ParseFile profile = comment.getUser().getParseFile(Comment.KEY_PROFILEPIC);
             if (profile != null) {
                 Glide.with(context).load(profile.getUrl()).circleCrop().into(ivProfile);
             } else {
