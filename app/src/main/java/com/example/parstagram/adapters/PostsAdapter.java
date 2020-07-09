@@ -71,6 +71,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         ImageView ivImage;
         ImageView ivProfile;
         TextView tvTimestamp;
+        ImageView ivComment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +80,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             ivProfile = itemView.findViewById(R.id.ivProfile);
             tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
+            ivComment = itemView.findViewById(R.id.ivComment);
             itemView.setOnClickListener(this);
         }
 
@@ -110,6 +112,27 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     MainActivity.goUserProfile(post.getUser());
                 }
             });
+            ivComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+
+                    // making sure the position is valid
+                    if (position != RecyclerView.NO_POSITION) {
+                        Post post = posts.get(position);
+
+                        // creating a new intent to go to the new activity
+                        Intent intent = new Intent(context, PostDetailsActivity.class);
+
+                        // pass information to the intent with the parceler
+                        intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                        intent.putExtra("openCompose", true);
+
+                        context.startActivity(intent);
+                    }
+
+                }
+            });
         }
 
         @Override
@@ -125,6 +148,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
                 // pass information to the intent with the parceler
                 intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                intent.putExtra("openCompose", false);
+
 
                 context.startActivity(intent);
             }

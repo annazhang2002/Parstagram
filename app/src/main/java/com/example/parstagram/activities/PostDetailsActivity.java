@@ -20,6 +20,7 @@ import com.example.parstagram.models.Comment;
 import com.example.parstagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 
 import org.parceler.Parcels;
@@ -38,6 +39,7 @@ public class PostDetailsActivity extends AppCompatActivity implements ComposeDia
     static CommentAdapter adapter;
     List<Comment> allComments;
     ImageView ivComment;
+    ImageView ivProfile;
 
     static Post post;
 
@@ -52,10 +54,22 @@ public class PostDetailsActivity extends AppCompatActivity implements ComposeDia
         ivImage = findViewById(R.id.ivImage);
         rvComments = findViewById(R.id.rvComments);
         ivComment = findViewById(R.id.ivComment);
+        ivProfile = findViewById(R.id.ivProfile);
 
 
         post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
+        boolean openCompose = getIntent().getBooleanExtra("openCompose", false);
 
+        if (openCompose) {
+            showEditDialog();
+        }
+
+        ParseFile profile = post.getProfile();
+        if (profile != null) {
+            Glide.with(this).load(profile.getUrl()).circleCrop().into(ivProfile);
+        } else {
+            Glide.with(this).load(R.drawable.default_pic).circleCrop().into(ivProfile);
+        }
         allComments = new ArrayList<>();
         adapter = new CommentAdapter(this, allComments);
         rvComments.setAdapter(adapter);
