@@ -14,13 +14,19 @@ public class ProfilePostsLinearFragment extends PostsFragment{
 
     private static final String TAG = "ProfileFragment" ;
 
+    ParseUser user;
+
+    public ProfilePostsLinearFragment(ParseUser user) {
+        this.user = user;
+    }
+
     @Override
     protected void queryPosts() {
         Log.i(TAG, "queryPosts");
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         query.setLimit(10);
+        query.whereEqualTo(Post.KEY_USER, user);
         query.addDescendingOrder(Post.KEY_CREATEDAT);
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -45,7 +51,7 @@ public class ProfilePostsLinearFragment extends PostsFragment{
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(10);
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Post.KEY_USER, user);
         query.setSkip(currNumPosts);
         query.addDescendingOrder(Post.KEY_CREATEDAT);
         query.findInBackground(new FindCallback<Post>() {

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.parstagram.activities.EditProfileActivity;
 import com.example.parstagram.activities.OpeningActivity;
 import com.example.parstagram.models.Post;
 import com.example.parstagram.R;
@@ -117,7 +118,7 @@ public class ProfileFragment extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchCamera();
+                goEditProfile();
             }
         });
         ivGrid.setOnClickListener(new View.OnClickListener() {
@@ -129,9 +130,14 @@ public class ProfileFragment extends Fragment {
         ivList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction().replace(R.id.flProfilePosts, new ProfilePostsLinearFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.flProfilePosts, new ProfilePostsLinearFragment(user)).commit();
             }
         });
+    }
+
+    public void goEditProfile() {
+        Intent intent = new Intent(getContext(), EditProfileActivity.class);
+        getContext().startActivity(intent);
     }
 
     private void goOpening() {
