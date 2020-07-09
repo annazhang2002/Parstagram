@@ -2,12 +2,14 @@ package com.example.parstagram.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +19,9 @@ import com.example.parstagram.activities.MainActivity;
 import com.example.parstagram.activities.PostDetailsActivity;
 import com.example.parstagram.R;
 import com.example.parstagram.models.Post;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
@@ -72,6 +76,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         ImageView ivProfile;
         TextView tvTimestamp;
         ImageView ivComment;
+        TextView tvLikeNum;
+        ImageView ivLike;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +87,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfile = itemView.findViewById(R.id.ivProfile);
             tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
             ivComment = itemView.findViewById(R.id.ivComment);
+            tvLikeNum = itemView.findViewById(R.id.tvLikeNum);
+            ivLike = itemView.findViewById(R.id.ivLike);
             itemView.setOnClickListener(this);
         }
 
@@ -90,6 +98,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvName.setText(username);
             tvTimestamp.setText(post.getRelativeTime());
+            tvLikeNum.setText(post.getLikeNum() + " Likes");
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
@@ -130,6 +139,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
                         context.startActivity(intent);
                     }
+
+                }
+            });
+            ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    post.addLike();
 
                 }
             });

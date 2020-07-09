@@ -3,16 +3,21 @@ package com.example.parstagram.models;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.parceler.Parcel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 //@Parcel
@@ -26,7 +31,10 @@ public class Post extends ParseObject {
     public static final String KEY_PROFILEPIC = "profilePic";
     public static final String KEY_NAME = "name";
     public static final String KEY_BIO = "bio";
-//
+    private static final String KEY_LIKES = "likes";
+    private static final String TAG = "Post";
+
+    //
     public Post() {}
 
     public String getDescription() {
@@ -51,6 +59,37 @@ public class Post extends ParseObject {
 
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
+    }
+
+    public int getLikeNum() {
+        JSONArray likes = getJSONArray(KEY_LIKES);
+        if (likes != null) {
+            return likes.length();
+        } else {
+            return 0;
+        }
+    }
+
+    public void addLike() {
+        Log.i(TAG, "adding like!");
+        JSONArray likes = getJSONArray(KEY_LIKES);
+        List<String> newLikes = new ArrayList<>();
+        if (likes != null) {
+            for (int i =0; i< likes.length(); i++) {
+                try {
+                    String username = likes.getString(i);
+                    if (username.equals(ParseUser.getCurrentUser().getUsername())) {
+                        return;
+                    }
+                    newLikes.add(username);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        newLikes.add(ParseUser.getCurrentUser().getUsername());
+        put(KEY_LIKES, newLikes);
+
     }
 
     public String getTimestamp() {
