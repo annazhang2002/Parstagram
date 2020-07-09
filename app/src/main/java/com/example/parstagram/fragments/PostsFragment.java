@@ -1,5 +1,6 @@
 package com.example.parstagram.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ public class PostsFragment extends Fragment {
     List<Post> allPosts;
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
+    ProgressDialog pd;
 
     public PostsFragment() {
         // Required empty public constructor
@@ -52,6 +54,7 @@ public class PostsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // initialize all of the components for the recycler view of posts
         rvPosts = view.findViewById(R.id.rvPosts);
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
@@ -72,6 +75,9 @@ public class PostsFragment extends Fragment {
             }
         });
 
+        // initialize the progress dialog
+        createProgressDialog();
+
         // implementing endless scroll
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
@@ -84,6 +90,13 @@ public class PostsFragment extends Fragment {
         // Adds the scroll listener to RecyclerView
         rvPosts.addOnScrollListener(scrollListener);
         queryPosts();
+    }
+
+    public void createProgressDialog() {
+        pd = new ProgressDialog(getContext());
+        pd.setTitle("Loading posts...");
+        pd.setMessage("Please wait.");
+        pd.setCancelable(false);
     }
 
     // method to load more posts on scroll
@@ -111,6 +124,7 @@ public class PostsFragment extends Fragment {
 
     protected void queryPosts() {
         Log.i(TAG, "queryPosts");
+        pd.show();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(10);
@@ -127,6 +141,7 @@ public class PostsFragment extends Fragment {
                 adapter.clear();
                 adapter.addAll(posts);
                 swipeContainer.setRefreshing(false);
+                pd.dismiss();
             }
         });
     }

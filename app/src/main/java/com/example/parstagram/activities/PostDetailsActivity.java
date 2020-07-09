@@ -1,11 +1,13 @@
 package com.example.parstagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.parstagram.R;
 import com.example.parstagram.adapters.CommentAdapter;
 import com.example.parstagram.adapters.PostsAdapter;
+import com.example.parstagram.fragments.ComposeDialogFragment;
 import com.example.parstagram.models.Comment;
 import com.example.parstagram.models.Post;
 import com.parse.FindCallback;
@@ -24,7 +27,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDetailsActivity extends AppCompatActivity {
+public class PostDetailsActivity extends AppCompatActivity implements ComposeDialogFragment.EditNameDialogListener  {
 
     private static final String TAG = "PostDetailsActivity";
     TextView tvName;
@@ -32,8 +35,9 @@ public class PostDetailsActivity extends AppCompatActivity {
     TextView tvDescription;
     ImageView ivImage;
     RecyclerView rvComments;
-    CommentAdapter adapter;
+    static CommentAdapter adapter;
     List<Comment> allComments;
+    ImageView ivComment;
 
     Post post;
 
@@ -47,6 +51,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvDescription);
         ivImage = findViewById(R.id.ivImage);
         rvComments = findViewById(R.id.rvComments);
+        ivComment = findViewById(R.id.ivComment);
 
 
         post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
@@ -56,17 +61,32 @@ public class PostDetailsActivity extends AppCompatActivity {
         rvComments.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvComments.setLayoutManager(layoutManager);
-
         tvName.setText(post.getUser().getUsername());
         tvTimestamp.setText(post.getTimestamp());
         tvDescription.setText(post.getDescription());
         Glide.with(this).load(post.getImage().getUrl()).into(ivImage);
 
+        ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditDialog();
+            }
+        });
+
         queryComments();
 
     }
 
-    protected void queryComments() {
+    public void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Post.class.getSimpleName(), Parcels.wrap(post));
+        composeDialogFragment.setArguments(bundle);
+        composeDialogFragment.show(fm, "fragment_compose_dialog");
+    }
+
+    public static void queryComments() {
         Log.i(TAG, "queryComments");
         ParseQuery<Comment> query = ParseQuery.getQuery(Comment.class);
         query.include(Comment.KEY_USER);
@@ -87,5 +107,10 @@ public class PostDetailsActivity extends AppCompatActivity {
                 adapter.addAll(comments);
             }
         });
+    }
+
+    @Override
+    public void onFinishEditDialog(Comment comment) {
+       queryComments();
     }
 }

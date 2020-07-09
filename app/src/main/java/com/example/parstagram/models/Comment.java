@@ -43,7 +43,7 @@ public class Comment extends ParseObject {
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
     }
-    public void setCommentPost(Post post) {
+    public void setPost(Post post) {
         put(KEY_POST, post);
     }
     public void setMessage(String message) {
