@@ -39,7 +39,7 @@ public class PostDetailsActivity extends AppCompatActivity implements ComposeDia
     List<Comment> allComments;
     ImageView ivComment;
 
-    Post post;
+    static Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +91,7 @@ public class PostDetailsActivity extends AppCompatActivity implements ComposeDia
         ParseQuery<Comment> query = ParseQuery.getQuery(Comment.class);
         query.include(Comment.KEY_USER);
         query.include(Comment.KEY_POST);
+        query.whereEqualTo(Comment.KEY_POST, post);
         query.setLimit(10);
         query.addDescendingOrder(Comment.KEY_CREATEDAT);
         query.findInBackground(new FindCallback<Comment>() {
