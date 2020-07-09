@@ -50,6 +50,9 @@ public class ProfileFragment extends Fragment {
     public static FragmentManager fragmentManager;
     File photoFile;
     String photoFileName = "photo.jpg";
+    ImageView ivGrid;
+    ImageView ivList;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -82,6 +85,8 @@ public class ProfileFragment extends Fragment {
         tvBio = view.findViewById(R.id.tvBio);
         btnEdit = view.findViewById(R.id.btnEdit);
         btnLogout = view.findViewById(R.id.btnLogout);
+        ivList = view.findViewById(R.id.ivList);
+        ivGrid = view.findViewById(R.id.ivGrid);
         fragmentManager.beginTransaction().replace(R.id.flProfilePosts, new ProfilePostsGridFragment(user)).commit();
 
         if (!user.getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
@@ -113,6 +118,18 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 launchCamera();
+            }
+        });
+        ivGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.beginTransaction().replace(R.id.flProfilePosts, new ProfilePostsGridFragment(user)).commit();
+            }
+        });
+        ivList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.beginTransaction().replace(R.id.flProfilePosts, new ProfilePostsLinearFragment()).commit();
             }
         });
     }
