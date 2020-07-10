@@ -8,12 +8,12 @@
 
     <ImageView
         android:id="@+id/ivProfile"
-        android:layout_width="108dp"
-        android:layout_height="95dp"
+        android:layout_width="114dp"
+        android:layout_height="107dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="13dp"
         tools:src="@tools:sample/avatars" />
 
     <TextView
@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/ivProfile"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#000000"
@@ -32,10 +32,12 @@
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/ivProfile"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="17dp"
+        android:layout_toEndOf="@+id/tvName"
         tools:text="@anna.y.zhang" />
 
     <TextView
@@ -46,7 +48,7 @@
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:textColor="#000000"
@@ -95,9 +97,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_below="@+id/btnLogout"
+        android:layout_below="@id/btnFollow"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="0dp"
         android:background="@drawable/border"
         android:orientation="horizontal">
@@ -118,4 +120,59 @@
             android:background="@drawable/border"
             android:src="@drawable/list" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnFollow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnEdit"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="20dp"
+        android:text="Follow" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="10dp"
+        android:text="Followers" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/textView"
+        android:text="Followers" />
+
+    <TextView
+        android:id="@+id/tvFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/ivProfile"
+        android:text="50"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/tvFollowers"
+        android:text="50"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 </RelativeLayout>

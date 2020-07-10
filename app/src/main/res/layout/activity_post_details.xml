@@ -118,4 +118,14 @@
         android:layout_marginTop="13dp"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <TextView
+        android:id="@+id/tvLikeNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivImage"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="19dp"
+        android:layout_toEndOf="@+id/ivComment"
+        tools:text="105 Likes" />
+
 </RelativeLayout>

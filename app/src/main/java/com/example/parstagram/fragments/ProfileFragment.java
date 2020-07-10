@@ -53,6 +53,9 @@ public class ProfileFragment extends Fragment {
     String photoFileName = "photo.jpg";
     ImageView ivGrid;
     ImageView ivList;
+    TextView tvFollowers;
+    TextView tvFollowing;
+    Button btnFollow;
 
 
     public ProfileFragment() {
@@ -88,6 +91,9 @@ public class ProfileFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnLogout);
         ivList = view.findViewById(R.id.ivList);
         ivGrid = view.findViewById(R.id.ivGrid);
+        tvFollowers = view.findViewById(R.id.tvFollowers);
+        tvFollowing = view.findViewById(R.id.tvFollowing);
+        btnFollow = view.findViewById(R.id.btnFollow);
         fragmentManager.beginTransaction().replace(R.id.flProfilePosts, new ProfilePostsGridFragment(user)).commit();
 
         if (!user.getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
@@ -108,6 +114,16 @@ public class ProfileFragment extends Fragment {
         } else {
             tvBio.setText(user.getString(Post.KEY_BIO));
         }
+        Integer followers = 0;
+        if (user.getJSONArray(Post.KEY_FOLLOWERS) != null) {
+            followers = user.getJSONArray(Post.KEY_FOLLOWERS).length();
+        }
+        Integer following = 0;
+        if (user.getJSONArray(Post.KEY_FOLLOWING) != null) {
+            following = user.getJSONArray(Post.KEY_FOLLOWING).length();
+        }
+        tvFollowers.setText(followers + "");
+        tvFollowing.setText(following + "");
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

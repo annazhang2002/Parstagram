@@ -32,6 +32,8 @@ public class Post extends ParseObject {
     public static final String KEY_NAME = "name";
     public static final String KEY_BIO = "bio";
     private static final String KEY_LIKES = "likes";
+    public static final String KEY_FOLLOWERS = "followers";
+    public static final String KEY_FOLLOWING = "following";
     private static final String TAG = "Post";
 
     //

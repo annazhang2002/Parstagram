@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
@@ -39,7 +41,9 @@ public class PostDetailsActivity extends AppCompatActivity implements ComposeDia
     static CommentAdapter adapter;
     List<Comment> allComments;
     ImageView ivComment;
+    ImageView ivLike;
     ImageView ivProfile;
+    TextView tvLikeNum;
 
     static Post post;
 
@@ -54,7 +58,9 @@ public class PostDetailsActivity extends AppCompatActivity implements ComposeDia
         ivImage = findViewById(R.id.ivImage);
         rvComments = findViewById(R.id.rvComments);
         ivComment = findViewById(R.id.ivComment);
+        ivLike = findViewById(R.id.ivLike);
         ivProfile = findViewById(R.id.ivProfile);
+        tvLikeNum = findViewById(R.id.tvLikeNum);
 
 
         post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
@@ -78,12 +84,41 @@ public class PostDetailsActivity extends AppCompatActivity implements ComposeDia
         tvName.setText(post.getUser().getUsername());
         tvTimestamp.setText(post.getTimestamp());
         tvDescription.setText(post.getDescription());
+        tvLikeNum.setText(post.getLikeNum() + " Likes");
         Glide.with(this).load(post.getImage().getUrl()).into(ivImage);
-
+        if (post.isLiked()) {
+            Glide.with(this).load(R.drawable.full_heart).into(ivLike);
+        } else {
+            Glide.with(this).load(R.drawable.ufi_heart).into(ivLike);
+        }
         ivComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showEditDialog();
+            }
+        });
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Integer likeImage;
+                if (post.addedLike()) {
+                    likeImage = R.drawable.full_heart;
+                } else {
+                    likeImage = R.drawable.ufi_heart;
+                }
+                post.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issue saving the post like" , e);
+                            return;
+                        }
+                        Log.i(TAG, "Like was saved!!");
+                        tvLikeNum.setText(post.getLikeNum() + " Likes");
+                        Glide.with(getApplicationContext()).load(likeImage).into(ivLike);
+                    }
+                });
+
             }
         });
 
