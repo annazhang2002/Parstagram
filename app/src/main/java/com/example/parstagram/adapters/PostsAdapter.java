@@ -2,6 +2,7 @@ package com.example.parstagram.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -109,6 +110,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             } else {
                 Glide.with(context).load(R.drawable.default_pic).circleCrop().into(ivProfile);
             }
+            if (post.isLiked()) {
+                Glide.with(context).load(R.drawable.full_heart).into(ivLike);
+            } else {
+                Glide.with(context).load(R.drawable.ufi_heart).into(ivLike);
+            }
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,7 +151,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    post.addLike();
+                    final Integer likeImage;
+                    if (post.addedLike()) {
+                        likeImage = R.drawable.full_heart;
+                    } else {
+                        likeImage = R.drawable.ufi_heart;
+                    }
+                    post.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                Log.e(TAG, "Issue saving the post like" , e);
+                                return;
+                            }
+                            Log.i(TAG, "Like was saved!!");
+                            tvLikeNum.setText(post.getLikeNum() + " Likes");
+                            Glide.with(context).load(likeImage).into(ivLike);
+                        }
+                    });
 
                 }
             });

@@ -70,7 +70,24 @@ public class Post extends ParseObject {
         }
     }
 
-    public void addLike() {
+    public boolean isLiked() {
+        JSONArray likes = getJSONArray(KEY_LIKES);
+        for (int i =0; i< likes.length(); i++) {
+            String username = null;
+            try {
+                username = likes.getString(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (username.equals(ParseUser.getCurrentUser().getUsername())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addedLike() {
+        boolean returnValue = true;
         Log.i(TAG, "adding like!");
         JSONArray likes = getJSONArray(KEY_LIKES);
         List<String> newLikes = new ArrayList<>();
@@ -78,17 +95,22 @@ public class Post extends ParseObject {
             for (int i =0; i< likes.length(); i++) {
                 try {
                     String username = likes.getString(i);
+                    Log.i(TAG, "username: " + username + " and the current username: "  + ParseUser.getCurrentUser().getUsername());
                     if (username.equals(ParseUser.getCurrentUser().getUsername())) {
-                        return;
+                        returnValue = false;
+                    } else {
+                        newLikes.add(username);
                     }
-                    newLikes.add(username);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
-        newLikes.add(ParseUser.getCurrentUser().getUsername());
+        if (returnValue) {
+            newLikes.add(ParseUser.getCurrentUser().getUsername());
+        }
         put(KEY_LIKES, newLikes);
+        return returnValue;
 
     }
 
