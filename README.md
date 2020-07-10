@@ -2,7 +2,7 @@
 
 **Parstagram** is a photo sharing app using Parse as its backend.
 
-Time spent: **X** hours spent in total
+Time spent: **25** hours spent in total
 
 ## User Stories
 
@@ -35,16 +35,21 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] Resized the bitmap to reduce storage space in database
 - [X] User sees specific error message when Parse can't login or sign them up (i.e. Account with that username already exists, invalid password/username)
 - [X] User profile shows a Name, username, bio, and profile picture as well
-    - [X] Users can logout or edit their profile as well
+    - [X] Users can logout or edit their profile as well 
+    - [X] Users can take a new profile picture
+    - [X] Users can follows others from profile
+    - [X] Users can toggle between grid and linear post views
 - [X] User can see followers on any user's profile
+- [X] Added followers and following numbers on each account 
+- [X] Made the name property required, and if the user is signing up they see an additional field to enter their name
+- [X] Created dialog fragment for when the user wants to create a comment 
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. I would like to talk about what the most efficient way to implement followers and following in the app
+2. I would also be interested in discussing how we can implement a direct message chat feature to the app.
 
 ## Video Walkthrough
 
@@ -85,7 +90,7 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I had some difficulty when I was trying to implement the followers and following feature because I learned that you can not write information to other user's followers lists for instance if they are not the current user. Otherwise, I also had a bit of trouble getting the profile posts to display in a gridview, so I had to learn myself how to use the GridLayoutManager. 
 
 ## License
 
