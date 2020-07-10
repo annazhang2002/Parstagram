@@ -60,21 +60,27 @@ Here's a complete walkthrough of all implemented user stories:
 Here are shorter gifs of various user stories: 
 
 Login/Signup/Logout
+
 ![](login.gif)
 
 Home feed (can like)
+
 ![](home.gif)
 
 PostDetails (can comment)
+
 ![](details.gif)
 
 User Profile (can follow, grid/list view)
+
 ![](follow.gif)
 
 Current User Profile (can edit profile)
+
 ![](currentuser.gif)
 
 Compose a new post (take picture and open gallery)
+
 ![](compose.gif)
 
 
