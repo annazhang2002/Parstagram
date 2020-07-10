@@ -32,12 +32,10 @@
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="17dp"
-        android:layout_toEndOf="@+id/tvName"
+        android:layout_below="@+id/tvName"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="-5dp"
+        android:layout_toEndOf="@+id/ivProfile"
         tools:text="@anna.y.zhang" />
 
     <TextView
@@ -133,36 +131,24 @@
         android:text="Follow" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="129dp"
-        android:layout_marginTop="10dp"
-        android:text="Followers" />
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvName"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="21dp"
         android:layout_toEndOf="@+id/textView"
         android:text="Followers" />
 
     <TextView
-        android:id="@+id/tvFollowers"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="1dp"
-        android:layout_toEndOf="@+id/ivProfile"
-        android:text="50"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_below="@+id/tvName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="20dp"
+        android:text="Followers" />
 
     <TextView
         android:id="@+id/tvFollowing"
@@ -170,9 +156,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/tvFollowers"
         android:text="50"
         android:textColor="#000000"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/ivProfile"
+        android:text="50"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
 </RelativeLayout>

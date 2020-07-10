@@ -39,7 +39,7 @@ The following **additional** features are implemented:
 - [X] User sees specific error message when Parse can't login or sign them up (i.e. Account with that username already exists, invalid password/username)
 - [X] User profile shows a Name, username, bio, and profile picture as well
     - [X] Users can logout or edit their profile as well
-- [ ] User can see followers on any user's profile
+- [X] User can see followers on any user's profile
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -48,9 +48,31 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here's a complete walkthrough of all implemented user stories:
 
 ![Walkthrough](walkthrough.gif)
+
+Here are shorter gifs of various user stories: 
+
+Login/Signup/Logout
+![](login.gif)
+
+Home feed (can like)
+![](home.gif)
+
+PostDetails (can comment)
+![](details.gif)
+
+User Profile (can follow, grid/list view)
+![](follow.gif)
+
+Current User Profile (can edit profile)
+![](currentuser.gif)
+
+Compose a new post (take picture and open gallery)
+![](compose.gif)
+
+
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
