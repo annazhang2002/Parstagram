@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,12 +29,20 @@ import com.example.parstagram.activities.EditProfileActivity;
 import com.example.parstagram.activities.OpeningActivity;
 import com.example.parstagram.models.Post;
 import com.example.parstagram.R;
+import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -56,7 +65,7 @@ public class ProfileFragment extends Fragment {
     TextView tvFollowers;
     TextView tvFollowing;
     Button btnFollow;
-
+    List<ParseUser> followers;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -82,6 +91,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        followers = new ArrayList<>();
         fragmentManager = getChildFragmentManager();
         ivProfile = view.findViewById(R.id.ivProfile);
         tvName = view.findViewById(R.id.tvName);
@@ -99,6 +109,8 @@ public class ProfileFragment extends Fragment {
         if (!user.getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
             btnEdit.setVisibility(View.GONE);
             btnLogout.setVisibility(View.GONE);
+        } else {
+            btnFollow.setVisibility(View.GONE);
         }
 
         ParseFile profile = user.getParseFile(Post.KEY_PROFILEPIC);
@@ -114,15 +126,13 @@ public class ProfileFragment extends Fragment {
         } else {
             tvBio.setText(user.getString(Post.KEY_BIO));
         }
-        Integer followers = 0;
-        if (user.getJSONArray(Post.KEY_FOLLOWERS) != null) {
-            followers = user.getJSONArray(Post.KEY_FOLLOWERS).length();
-        }
         Integer following = 0;
         if (user.getJSONArray(Post.KEY_FOLLOWING) != null) {
             following = user.getJSONArray(Post.KEY_FOLLOWING).length();
         }
-        tvFollowers.setText(followers + "");
+        getNumFollowers();
+
+        tvFollowers.setText(followers.size() + "");
         tvFollowing.setText(following + "");
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +157,99 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 fragmentManager.beginTransaction().replace(R.id.flProfilePosts, new ProfilePostsLinearFragment(user)).commit();
+            }
+        });
+        if (isFollowing()) {
+            btnFollow.setText("Unfollow");
+        } else {
+            btnFollow.setText("Follow");
+        }
+        btnFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String btnText;
+                final Integer numFollowers;
+                if (!isFollowing()) {
+                    btnText = "Unfollow";
+                    numFollowers = 1;
+                } else {
+                    btnText = "Follow";
+                    numFollowers = 0;
+                }
+                followHandler();
+                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Issue following" , e);
+                            return;
+                        }
+                        Log.i(TAG, "Follow was saved!!");
+                        btnFollow.setText(btnText);
+                        tvFollowers.setText(numFollowers + "");
+                    }
+                });
+            }
+        });
+
+    }
+
+    public boolean followHandler() {
+        boolean returnValue = true;
+        JSONArray followers = ParseUser.getCurrentUser().getJSONArray(Post.KEY_FOLLOWING);
+        List<String> newFollowers = new ArrayList<>();
+        if (followers != null) {
+            for (int i =0; i< followers.length(); i++) {
+                try {
+                    String username = followers.getString(i);
+                    Log.i(TAG, "username: " + username + " and the current username: "  + ParseUser.getCurrentUser().getUsername());
+                    if (username.equals(user.getUsername())) {
+                        returnValue = false;
+                    } else {
+                        newFollowers.add(username);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (returnValue) {
+            newFollowers.add(user.getUsername());
+        }
+        ParseUser.getCurrentUser().put(Post.KEY_FOLLOWING, newFollowers);
+        return returnValue;
+    }
+
+
+    public boolean isFollowing() {
+        JSONArray followers = ParseUser.getCurrentUser().getJSONArray(Post.KEY_FOLLOWING);
+        for (int i =0; i< followers.length(); i++) {
+            try {
+                String username = followers.getString(i);
+//                Log.i(TAG, "username: " + username + " and the current username: "  + ParseUser.getCurrentUser().getUsername());
+                if (username.equals(user.getUsername())) {
+                    return true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public void getNumFollowers() {
+        ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
+//        query.whereContains(Post.KEY_FOLLOWING, user.getUsername());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> users, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting followers", e);
+                }
+                for (ParseUser user: users) {
+                    Log.i(TAG, " username " + user.getUsername());
+                }
+                followers.addAll(users);
             }
         });
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:layout_below="@+id/ivPostImage"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="85dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/border"
         android:ems="10"
@@ -31,6 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="101dp"
         android:layout_marginTop="16dp"
+        app:srcCompat="@drawable/default_pic"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -43,5 +45,25 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="30dp"
         android:text="post" />
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPostImage"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="15dp"
+        android:text="Take Picture" />
+
+    <Button
+        android:id="@+id/btnGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPostImage"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="17dp"
+        android:layout_toEndOf="@+id/btnCamera"
+        android:text="Open Gallery" />
 
 </RelativeLayout>

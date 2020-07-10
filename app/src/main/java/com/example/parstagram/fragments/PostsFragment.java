@@ -139,7 +139,9 @@ public class PostsFragment extends Fragment {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username " + post.getUser().getUsername());
                 }
                 adapter.clear();
-                adapter.addAll(posts);
+                allPosts.addAll(posts);
+                adapter.notifyDataSetChanged();
+//                adapter.addAll(posts);
                 swipeContainer.setRefreshing(false);
                 pd.dismiss();
             }
