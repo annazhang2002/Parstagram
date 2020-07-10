@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     EditText etUsername;
     EditText etPassword;
+    EditText etName;
     Button btnLogin;
     TextView tvError;
 
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+        etName = findViewById(R.id.etName);
         btnLogin = findViewById(R.id.btnLogin);
         tvError = findViewById(R.id.tvError);
         etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -51,27 +53,34 @@ public class LoginActivity extends AppCompatActivity {
                 tvError.setText("");
             }
         });
+        if (loginType.equals("signup")) {
+            btnLogin.setText("Sign Up");
+        } else {
+            etName.setVisibility(View.GONE);
+        }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
+                String name = etName.getText().toString();
                 if (loginType.equals("login")) {
                     loginUser(username, password);
                 } else {
-                    createUser(username, password);
+                    createUser(username, password, name);
                 }
             }
         });
     }
 
-    private void createUser(String username, String password) {
+    private void createUser(String username, String password, String name) {
         // Create the ParseUser
         ParseUser user = new ParseUser();
         //  Set core properties
         user.setUsername(username);
         user.setPassword(password);
+        user.put("name", name);
 
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
